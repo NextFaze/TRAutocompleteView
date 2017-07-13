@@ -31,6 +31,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TRAutocompleteItemsSource.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface TRGoogleMapsAutocompleteItemsSource : NSObject <TRAutocompleteItemsSource>
 
 @property(nonatomic) CLLocationCoordinate2D location;
@@ -40,3 +42,5 @@
 - (id)initWithMinimumCharactersToTrigger:(NSUInteger)minimumCharactersToTrigger language: (NSString*) language apiKey:(NSString *)apiKey;
 
 @end
+
+NS_ASSUME_NONNULL_END

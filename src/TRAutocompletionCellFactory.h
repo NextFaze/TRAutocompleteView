@@ -29,11 +29,13 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol TRSuggestionItem;
 
 @protocol TRAutocompletionCell <NSObject>
 
-- (void)updateWith:(id <TRSuggestionItem>)item;
+- (void)updateWith:(nullable id <TRSuggestionItem>)item;
 
 @end
 
@@ -42,3 +44,5 @@
 - (id <TRAutocompletionCell>)createReusableCellWithIdentifier:(NSString *)identifier;
 
 @end
+
+NS_ASSUME_NONNULL_END

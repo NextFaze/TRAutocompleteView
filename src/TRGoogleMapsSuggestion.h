@@ -30,6 +30,8 @@
 #import <Foundation/Foundation.h>
 #import "TRAutocompleteItemsSource.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface TRGoogleMapsSuggestion : NSObject <TRSuggestionItem>
 
 @property(nonatomic) NSString *address;
@@ -37,3 +39,5 @@
 - (id)initWith:(NSString *)address;
 
 @end
+
+NS_ASSUME_NONNULL_END

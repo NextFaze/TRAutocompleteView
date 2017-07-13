@@ -29,16 +29,18 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol TRAutocompleteItemsSource;
 @protocol TRAutocompletionCellFactory;
 @protocol TRSuggestionItem;
 
 @interface TRAutocompleteView : UIView
 
-@property(readonly) id <TRSuggestionItem> selectedSuggestion;
-@property(readonly) NSArray *suggestions;
+@property(nullable, readonly) id <TRSuggestionItem> selectedSuggestion;
+@property(nullable, readonly) NSArray *suggestions;
 
-@property(copy) void (^didAutocompleteWith)(id <TRSuggestionItem>);
+@property(nullable, copy) void (^didAutocompleteWith)(id <TRSuggestionItem> _Nullable);
 
 @property(nonatomic) UIColor *separatorColor;
 @property(nonatomic) UITableViewCellSeparatorStyle separatorStyle;
@@ -51,3 +53,5 @@
                                     presentingIn:(UIViewController *)controller;
 
 @end
+
+NS_ASSUME_NONNULL_END

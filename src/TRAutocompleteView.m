@@ -33,8 +33,8 @@
 
 @interface TRAutocompleteView () <UITableViewDelegate, UITableViewDataSource>
 
-@property(readwrite) id <TRSuggestionItem> selectedSuggestion;
-@property(readwrite) NSArray *suggestions;
+@property(nullable, readwrite) id <TRSuggestionItem> selectedSuggestion;
+@property(nullable, readwrite) NSArray *suggestions;
 
 @end
 
@@ -159,7 +159,7 @@
     if ([_queryTextField.text length] >= _itemsSource.minimumCharactersToTrigger)
     {
         [_itemsSource itemsFor:_queryTextField.text whenReady:
-                                                            ^(NSArray *suggestions)
+                                                            ^(NSArray * _Nullable suggestions)
                                                             {
                                                                 if (_queryTextField.text.length
                                                                     < _itemsSource.minimumCharactersToTrigger)

@@ -29,8 +29,12 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITextField (TRTextFieldExtensions)
 
--(void) setLeftPadding:(CGFloat)points;
+- (void)setLeftPadding:(CGFloat)points;
 
 @end
+
+NS_ASSUME_NONNULL_END

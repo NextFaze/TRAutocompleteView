@@ -29,10 +29,12 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol TRAutocompleteItemsSource <NSObject>
 
 - (NSUInteger)minimumCharactersToTrigger;
-- (void)itemsFor:(NSString *)query whenReady:(void (^)(NSArray *))suggestionsReady;
+- (void)itemsFor:(NSString *)query whenReady:(void (^)(NSArray * _Nullable))suggestionsReady;
 
 @end
 
@@ -41,3 +43,5 @@
 - (NSString *)completionText;
 
 @end
+
+NS_ASSUME_NONNULL_END
