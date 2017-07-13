@@ -112,7 +112,7 @@
     self.separatorColor = [UIColor lightGrayColor];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    self.topMargin = 0;
+    self.insets = UIEdgeInsetsZero;
 }
 
 - (void)keyboardWasShown:(NSNotification *)notification
@@ -120,30 +120,22 @@
     NSDictionary *info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
 
-    CGFloat contextViewHeight = 0;
-    CGFloat kbHeight = 0;
-    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation))
-    {
-        contextViewHeight = _contextController.view.frame.size.height;
-        kbHeight = kbSize.height;
-    }
-    else if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
-    {
-        contextViewHeight = _contextController.view.frame.size.width;
-        kbHeight = kbSize.width;
-    }
-
+    CGFloat contextViewHeight = _contextController.view.frame.size.height;
+    CGFloat kbHeight = kbSize.height;
+    
     CGPoint textPosition = [_queryTextField convertPoint:_queryTextField.bounds.origin toView:nil]; //Taking in account Y position of queryTextField relatively to it's Window
     
     CGRect transformedQueryTextFieldFrame = [_queryTextField.superview convertRect:_queryTextField.frame toView:_contextController.view];
-    CGFloat calculatedY = transformedQueryTextFieldFrame.origin.y + transformedQueryTextFieldFrame.size.height + self.topMargin;
-    CGFloat calculatedHeight = contextViewHeight - calculatedY - kbHeight;
+    CGFloat calculatedY = transformedQueryTextFieldFrame.origin.y + transformedQueryTextFieldFrame.size.height + self.insets.top;
+    CGFloat calculatedHeight = contextViewHeight - calculatedY - kbHeight - self.insets.bottom;
+    CGFloat calculatedX = transformedQueryTextFieldFrame.origin.x + self.insets.left;
+    CGFloat calculatedWidth = transformedQueryTextFieldFrame.size.width - self.insets.left - self.insets.right;
 
     calculatedHeight += _contextController.tabBarController.tabBar.frame.size.height; //keyboard is shown over it, need to compensate
 
-    self.frame = CGRectMake(transformedQueryTextFieldFrame.origin.x,
+    self.frame = CGRectMake(calculatedX,
                             calculatedY,
-                            _queryTextField.frame.size.width,
+                            calculatedWidth,
                             calculatedHeight);
     _table.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
