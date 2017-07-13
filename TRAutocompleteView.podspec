@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '5.0'
   s.source_files = 'src'
   s.requires_arc = true
-  
+
   s.frameworks = 'CoreLocation'
-  s.dependency 'AFNetworking', '~> 1.3.0'
 end
