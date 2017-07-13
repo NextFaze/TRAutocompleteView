@@ -141,7 +141,7 @@
 
     calculatedHeight += _contextController.tabBarController.tabBar.frame.size.height; //keyboard is shown over it, need to compensate
 
-    self.frame = CGRectMake(_queryTextField.frame.origin.x,
+    self.frame = CGRectMake(transformedQueryTextFieldFrame.origin.x,
                             calculatedY,
                             _queryTextField.frame.size.width,
                             calculatedHeight);
