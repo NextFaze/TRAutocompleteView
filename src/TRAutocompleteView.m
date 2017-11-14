@@ -91,8 +91,8 @@
                                       name:UITextFieldTextDidChangeNotification
                                     object:_queryTextField];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWasShown:)
-                                                     name:UIKeyboardDidShowNotification
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillHide:)
@@ -115,10 +115,10 @@
     self.insets = UIEdgeInsetsZero;
 }
 
-- (void)keyboardWasShown:(NSNotification *)notification
+- (void)keyboardWillShow:(NSNotification *)notification
 {
     NSDictionary *info = [notification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 
     CGFloat contextViewHeight = _contextController.view.frame.size.height;
     CGFloat kbHeight = kbSize.height;
@@ -133,11 +133,13 @@
 
     calculatedHeight += _contextController.tabBarController.tabBar.frame.size.height; //keyboard is shown over it, need to compensate
 
+    [UIView setAnimationsEnabled:NO];
     self.frame = CGRectMake(calculatedX,
                             calculatedY,
                             calculatedWidth,
                             calculatedHeight);
     _table.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
