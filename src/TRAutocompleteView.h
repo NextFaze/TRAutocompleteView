@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) UITableViewCellSeparatorStyle separatorStyle;
 
 @property(nonatomic) UIEdgeInsets insets;
+@property(nonatomic) CGRect maxBounds;
 
 + (TRAutocompleteView *)autocompleteViewBindedTo:(UITextField *)textField
                                      usingSource:(id <TRAutocompleteItemsSource>)itemsSource

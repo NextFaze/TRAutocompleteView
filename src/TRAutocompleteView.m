@@ -113,6 +113,7 @@
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     self.insets = UIEdgeInsetsZero;
+    self.maxBounds = CGRectZero;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -126,18 +127,24 @@
     CGPoint textPosition = [_queryTextField convertPoint:_queryTextField.bounds.origin toView:nil]; //Taking in account Y position of queryTextField relatively to it's Window
     
     CGRect transformedQueryTextFieldFrame = [_queryTextField.superview convertRect:_queryTextField.frame toView:_contextController.view];
-    CGFloat calculatedY = transformedQueryTextFieldFrame.origin.y + transformedQueryTextFieldFrame.size.height + self.insets.top;
-    CGFloat calculatedHeight = contextViewHeight - calculatedY - kbHeight - self.insets.bottom;
-    CGFloat calculatedX = transformedQueryTextFieldFrame.origin.x + self.insets.left;
-    CGFloat calculatedWidth = transformedQueryTextFieldFrame.size.width - self.insets.left - self.insets.right;
-
+    CGFloat calculatedY = transformedQueryTextFieldFrame.origin.y + transformedQueryTextFieldFrame.size.height;
+    CGFloat calculatedHeight = contextViewHeight - calculatedY - kbHeight;
+    CGFloat calculatedX = transformedQueryTextFieldFrame.origin.x;
+    CGFloat calculatedWidth = transformedQueryTextFieldFrame.size.width;
+    
     calculatedHeight += _contextController.tabBarController.tabBar.frame.size.height; //keyboard is shown over it, need to compensate
-
+    
+    CGRect finalFrame = CGRectMake(calculatedX,
+                                   calculatedY,
+                                   calculatedWidth,
+                                   calculatedHeight);
+    
+    if (self.maxBounds.size.height > 0 && self.maxBounds.size.width > 0)
+        finalFrame = CGRectIntersection(finalFrame, self.maxBounds);
+    finalFrame = UIEdgeInsetsInsetRect(finalFrame, self.insets);
+    
     [UIView setAnimationsEnabled:NO];
-    self.frame = CGRectMake(calculatedX,
-                            calculatedY,
-                            calculatedWidth,
-                            calculatedHeight);
+    self.frame = finalFrame;
     _table.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [UIView setAnimationsEnabled:YES];
 }
