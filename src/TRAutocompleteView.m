@@ -46,8 +46,8 @@
     __weak UIViewController *_contextController;
 
     UITableView *_table;
-    id <TRAutocompleteItemsSource> _itemsSource;
-    id <TRAutocompletionCellFactory> _cellFactory;
+    __weak id <TRAutocompleteItemsSource> _itemsSource;
+    __weak id <TRAutocompletionCellFactory> _cellFactory;
 }
 
 + (TRAutocompleteView *)autocompleteViewBindedTo:(UITextField *)textField
